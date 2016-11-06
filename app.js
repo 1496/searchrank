@@ -5,10 +5,30 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var app = express();
+
+/*--------------------------------
+mogooseの処理(スキーマの定義)
+--------------------------------*/
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var rankLogSchema = new Schema({
+  createTime:{type:Date,default:Date.now},
+  url:{type:String},
+  keyword:{type:Array,default:false},
+  rank:{type:Array,default:false}
+  // version:{type:String},
+  // fav:{type:Number,default:0},
+  // dis:{type:Number,default:0},
+  // viewinfo:{type:Number,default:0},
+  // comment:{type:Array,default:[]},
+  
+});
+mongoose.model('Log',rankLogSchema);
+
 var routes = require('./routes/index');
 var result = require('./routes/result');
 
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
